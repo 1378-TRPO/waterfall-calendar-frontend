@@ -1,5 +1,5 @@
 import type { EventSummary } from '../../types/api';
-import { formatTime, isSameDay,WEEKDAYS_SHORT } from '../../utils/datetime';
+import { formatTime, isSameDay, WEEKDAYS_SHORT } from '../../utils/datetime';
 import styles from './MonthGrid.module.css';
 
 interface MonthGridProps {

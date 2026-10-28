@@ -10,6 +10,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
 import { useMe } from '../hooks/useMe';
+import { useUnreadCount } from '../hooks/useNotifications';
 import { authService } from '../services/authService';
 import { useTheme } from '../theme/theme-context';
 import styles from './MainLayout.module.css';
@@ -69,6 +70,21 @@ function UserChip() {
     );
 }
 
+function NotificationsLink() {
+    const { data: unreadCount } = useUnreadCount();
+    const badge = unreadCount && unreadCount > 0 ? (unreadCount > 99 ? '99+' : unreadCount) : null;
+
+    return (
+        <NavLink to="/notifications" className={styles.navLink}>
+            <span className={styles.bellWrap}>
+                <IconBell size={16} stroke={1.8} />
+                {badge && <span className={styles.badge}>{badge}</span>}
+            </span>
+            Уведомления
+        </NavLink>
+    );
+}
+
 export default function MainLayout() {
     return (
         <div className={styles.page}>
@@ -84,10 +100,7 @@ export default function MainLayout() {
                         <NavLink to="/" end className={styles.navLink}>
                             Календарь
                         </NavLink>
-                        <NavLink to="/notifications" className={styles.navLink}>
-                            <IconBell size={16} stroke={1.8} />
-                            Уведомления
-                        </NavLink>
+                        <NotificationsLink />
                     </nav>
                     <div className={styles.spacer} />
                     <ThemeToggle />

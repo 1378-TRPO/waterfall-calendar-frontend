@@ -139,6 +139,10 @@ export function formatFullDate(date: Date): string {
     return `${date.getDate()} ${MONTH_GENITIVE[date.getMonth()]} ${date.getFullYear()}`;
 }
 
+export function formatShortDateTime(date: Date): string {
+    return `${formatDayMonth(date)}, ${formatTime(date)}`;
+}
+
 export function formatMonthYear(date: Date): string {
     return `${MONTH_NOMINATIVE[date.getMonth()]} ${date.getFullYear()}`;
 }

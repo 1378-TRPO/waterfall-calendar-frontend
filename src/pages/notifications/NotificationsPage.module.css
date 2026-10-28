@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-    max-width: var(--layout-max);
+    max-width: 720px;
     margin: 0 auto;
     width: 100%;
 }
@@ -12,6 +12,123 @@
     font-weight: 600;
     color: var(--text-heading);
     margin: 0;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-surface);
+    overflow: hidden;
+}
+
+.item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s ease;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.itemUnread {
+    background: var(--accent-soft-bg);
+}
+
+.itemUnread .message {
+    font-weight: 600;
+}
+
+.itemRead {
+    background: var(--bg-surface);
+}
+
+.item:hover {
+    background: var(--bg-hover);
+}
+
+.iconWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.invited {
+    background: var(--accent-soft-bg);
+    color: var(--accent-soft-text);
+}
+
+.pinged {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.changed {
+    background: var(--info-bg);
+    color: var(--info);
+}
+
+.cancelled {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.body {
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.message {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+}
+
+.time {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.readButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.readButton:hover {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.readButton:disabled {
+    opacity: 0.5;
+    cursor: default;
 }
 
 .empty {
@@ -38,4 +155,19 @@
     font-size: var(--text-sm);
     color: var(--text-secondary);
     margin: 0;
+}
+
+.loading {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.serverError {
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--danger-bg);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    font-size: var(--text-sm);
 }
