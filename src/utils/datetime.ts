@@ -153,3 +153,16 @@ export function formatWeekRange(from: Date, to: Date): string {
     }
     return `${formatFullDate(from)} - ${formatFullDate(to)}`;
 }
+
+/** Значение для input type="datetime-local": YYYY-MM-DDTHH:mm в локальном времени. */
+export function toLocalInputValue(date: Date): string {
+    const pad = (value: number) => String(value).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(
+        date.getHours(),
+    )}:${pad(date.getMinutes())}`;
+}
+
+/** Обратное преобразование: datetime-local всегда в локальном времени. */
+export function fromLocalInputValue(value: string): Date {
+    return new Date(value);
+}

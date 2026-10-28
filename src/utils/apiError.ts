@@ -11,3 +11,16 @@ export function getApiErrorMessage(error: unknown): string {
     }
     return error instanceof Error ? error.message : 'Неизвестная ошибка';
 }
+
+/** Ошибки валидации (400, ValidationProblemDetails): словарь поле -> текст. */
+export function getApiValidationErrors(error: unknown): Record<string, string> | null {
+    if (isAxiosError(error) && error.response?.status === 400) {
+        const errors = (error.response.data as { errors?: Record<string, string[]> }).errors;
+        if (errors) {
+            return Object.fromEntries(
+                Object.entries(errors).map(([field, messages]) => [field, messages.join(' ')]),
+            );
+        }
+    }
+    return null;
+}
