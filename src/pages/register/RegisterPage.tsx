@@ -46,7 +46,7 @@ export default function RegisterPage({ onRegister }: RegisterPageProps) {
         }
         if (!email.trim()) {
             errors.email = 'Укажите email';
-        } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        } else if (!/^\S+@\S+$/.test(email)) {
             errors.email = 'Некорректный email';
         }
         if (!password) {
