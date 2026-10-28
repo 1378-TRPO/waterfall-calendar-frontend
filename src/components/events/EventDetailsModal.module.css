@@ -1,0 +1,325 @@
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.loading {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.cancelledBanner {
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--danger-bg);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    font-size: var(--text-sm);
+    font-weight: 500;
+}
+
+.titleRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.typeBadge {
+    display: inline-flex;
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-pill);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    font-size: var(--text-2xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex-shrink: 0;
+}
+
+.typeMeeting {
+    background: var(--accent-soft-bg);
+    border-color: var(--accent-soft-border);
+    color: var(--accent-soft-text);
+}
+
+.title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin: 0;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.metaList {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.metaRow {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+}
+
+.metaRow svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.link {
+    color: var(--accent);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.description {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin: 0;
+    padding: var(--space-3);
+    border-radius: var(--radius-md);
+    background: var(--bg-subtle);
+    overflow-wrap: anywhere;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.sectionTitle {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+}
+
+.participants {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.participant {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--border);
+    min-width: 0;
+}
+
+.participant:last-child {
+    border-bottom: none;
+}
+
+.avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-soft-bg);
+    border: 1px solid var(--accent-soft-border);
+    color: var(--accent-soft-text);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.participantName {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.participantEmail {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.participantRight {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+}
+
+.rsvpBadge {
+    padding: 2px var(--space-2);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-2xs);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.pending {
+    background: var(--warning-bg);
+    color: var(--warning);
+}
+
+.accepted {
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.declined {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+.pingButton {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: 28px;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.pingButton:hover {
+    background: var(--bg-hover);
+    color: var(--text-heading);
+}
+
+.pingButton:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.rsvpActions {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.rsvpButton {
+    flex: 1;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.rsvpButton:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.rsvpAccept {
+    color: var(--success);
+}
+
+.rsvpAccept:hover {
+    background: var(--success-bg);
+    border-color: var(--success);
+}
+
+.rsvpActive {
+    background: var(--success-bg);
+    border-color: var(--success);
+    font-weight: 600;
+}
+
+.rsvpDecline {
+    color: var(--danger);
+}
+
+.rsvpDecline:hover {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+}
+
+.rsvpActiveDecline {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+    font-weight: 600;
+}
+
+.footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.secondaryButton,
+.dangerButton {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    height: 36px;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.secondaryButton {
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+}
+
+.secondaryButton:hover {
+    background: var(--bg-hover);
+}
+
+.dangerButton {
+    border: 1px solid var(--danger);
+    background: var(--bg-surface);
+    color: var(--danger);
+}
+
+.dangerButton:hover {
+    background: var(--danger-bg);
+}
+
+.serverError {
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    background: var(--danger-bg);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    font-size: var(--text-sm);
+}

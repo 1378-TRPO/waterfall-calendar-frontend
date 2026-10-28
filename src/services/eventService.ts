@@ -1,4 +1,10 @@
-import type { CreateEventPayload, EventDetails, EventPayload, EventSummary } from '../types/api';
+import type {
+    CreateEventPayload,
+    EventDetails,
+    EventPayload,
+    EventSummary,
+    RsvpStatus,
+} from '../types/api';
 import { eventApi } from './api';
 
 export const eventService = {
@@ -20,5 +26,19 @@ export const eventService = {
     async update(id: number, payload: EventPayload): Promise<EventDetails> {
         const { data } = await eventApi.put<EventDetails>(`/${id}`, payload);
         return data;
+    },
+
+    async cancel(id: number): Promise<EventDetails> {
+        const { data } = await eventApi.post<EventDetails>(`/${id}/cancel`);
+        return data;
+    },
+
+    async setRsvp(id: number, status: RsvpStatus): Promise<EventDetails> {
+        const { data } = await eventApi.put<EventDetails>(`/${id}/rsvp`, { status });
+        return data;
+    },
+
+    async ping(id: number, userId: number): Promise<void> {
+        await eventApi.post(`/${id}/participants/${userId}/ping`);
     },
 };

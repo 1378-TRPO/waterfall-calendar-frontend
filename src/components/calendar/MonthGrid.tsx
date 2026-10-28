@@ -1,5 +1,5 @@
 import type { EventSummary } from '../../types/api';
-import { formatTime, isSameDay, WEEKDAYS_SHORT } from '../../utils/datetime';
+import { formatTime, isSameDay,WEEKDAYS_SHORT } from '../../utils/datetime';
 import styles from './MonthGrid.module.css';
 
 interface MonthGridProps {
@@ -48,32 +48,25 @@ export default function MonthGrid({
                             {day.getDate()}
                         </span>
                         <div className={styles.chips}>
-                            {dayEvents.slice(0, MAX_CHIPS).map((event) => {
-                                const editable = event.isOrganizer && !event.isCancelled;
-                                return (
-                                    <div
-                                        key={event.id}
-                                        className={`${styles.chip} ${
-                                            event.type === 'meeting' ? styles.chipMeeting : ''
-                                        } ${event.isCancelled ? styles.chipCancelled : ''} ${
-                                            editable ? styles.chipClickable : ''
-                                        }`}
-                                        title={`${formatTime(new Date(event.startAt))} ${event.title}`}
-                                        onClick={(clickEvent) => {
-                                            clickEvent.stopPropagation();
-                                            if (editable) {
-                                                onEventClick(event);
-                                            }
-                                        }}
-                                        role="presentation"
-                                    >
-                                        <span className={styles.chipTime}>
-                                            {formatTime(new Date(event.startAt))}
-                                        </span>
-                                        <span className={styles.chipTitle}>{event.title}</span>
-                                    </div>
-                                );
-                            })}
+                            {dayEvents.slice(0, MAX_CHIPS).map((event) => (
+                                <div
+                                    key={event.id}
+                                    className={`${styles.chip} ${styles.chipClickable} ${
+                                        event.type === 'meeting' ? styles.chipMeeting : ''
+                                    } ${event.isCancelled ? styles.chipCancelled : ''}`}
+                                    title={`${formatTime(new Date(event.startAt))} ${event.title}`}
+                                    onClick={(clickEvent) => {
+                                        clickEvent.stopPropagation();
+                                        onEventClick(event);
+                                    }}
+                                    role="presentation"
+                                >
+                                    <span className={styles.chipTime}>
+                                        {formatTime(new Date(event.startAt))}
+                                    </span>
+                                    <span className={styles.chipTitle}>{event.title}</span>
+                                </div>
+                            ))}
                             {dayEvents.length > MAX_CHIPS && (
                                 <span className={styles.more}>
                                     +{dayEvents.length - MAX_CHIPS} ещё
