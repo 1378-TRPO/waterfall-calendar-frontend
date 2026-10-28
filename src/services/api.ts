@@ -13,10 +13,10 @@ function forceLogout() {
 
 /**
  * Единственный axios-инстанс на приложение: JWT-инъекция и разлогин по 401
- * живут здесь, сервисы различаются только префиксом маршрута.
+ * живут здесь, сервисы различаются только полным префиксом маршрута
+ * в `baseURL` конкретного запроса.
  */
 const api: AxiosInstance = axios.create({
-    baseURL: '/api',
     timeout: 30 * 1000,
 });
 
@@ -56,9 +56,9 @@ function scoped(baseURL: string) {
     };
 }
 
-export const authApi = scoped('/auth');
-export const userApi = scoped('/users');
-export const eventApi = scoped('/events');
-export const notificationApi = scoped('/notifications');
+export const authApi = scoped('/api/auth');
+export const userApi = scoped('/api/users');
+export const eventApi = scoped('/api/events');
+export const notificationApi = scoped('/api/notifications');
 
 export { api };
