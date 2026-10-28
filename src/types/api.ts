@@ -1,5 +1,11 @@
 export interface User {
-    id: string;
+    id: number;
     email: string;
     displayName: string;
+}
+
+export interface AuthResponse {
+    token: string;
+    expiresAt: string;
+    user: User;
 }

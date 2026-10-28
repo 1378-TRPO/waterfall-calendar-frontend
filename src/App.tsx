@@ -6,6 +6,7 @@ import CalendarPage from './pages/calendar/CalendarPage';
 import LoginPage from './pages/login/LoginPage';
 import NotificationsPage from './pages/notifications/NotificationsPage';
 import RegisterPage from './pages/register/RegisterPage';
+import { authService } from './services/authService';
 import { ThemeProvider } from './theme/ThemeContext';
 import { tokenStorage } from './utils/tokenStorage';
 
@@ -14,9 +15,9 @@ function LoginRoute() {
         return <Navigate to="/" replace />;
     }
 
-    // Заглушка этапа scaffold: реальный authService подключается на этапе auth.
-    const handleLogin = async () => {
-        throw new Error('Вход пока не подключен к бэкенду, ожидайте этап auth');
+    const handleLogin = async (email: string, password: string) => {
+        await authService.login(email, password);
+        window.location.href = '/';
     };
 
     return <LoginPage onLogin={handleLogin} />;
@@ -27,8 +28,10 @@ function RegisterRoute() {
         return <Navigate to="/" replace />;
     }
 
-    const handleRegister = async () => {
-        throw new Error('Регистрация пока не подключена к бэкенду, ожидайте этап auth');
+    const handleRegister = async (displayName: string, email: string, password: string) => {
+        // Регистрация сразу выдает токен, отдельный вход не нужен.
+        await authService.register(displayName, email, password);
+        window.location.href = '/';
     };
 
     return <RegisterPage onRegister={handleRegister} />;
