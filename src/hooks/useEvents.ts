@@ -10,3 +10,10 @@ export function useEventsRange(from: Date, to: Date) {
         placeholderData: keepPreviousData,
     });
 }
+
+export function useUpcomingEvents(limit = 10) {
+    return useQuery({
+        queryKey: queryKeys.events.upcoming(limit),
+        queryFn: () => eventService.getUpcoming(limit),
+    });
+}

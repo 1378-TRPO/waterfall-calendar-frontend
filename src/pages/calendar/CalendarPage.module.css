@@ -48,6 +48,29 @@
     font-size: var(--text-sm);
 }
 
+.layout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-5);
+    flex: 1;
+    min-height: 0;
+    min-width: 0;
+}
+
+.calendarArea {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 960px) {
+    .layout {
+        flex-direction: column;
+    }
+}
+
 .loading {
     font-size: var(--text-sm);
     color: var(--text-secondary);

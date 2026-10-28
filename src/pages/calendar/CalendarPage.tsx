@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import CalendarToolbar from '../../components/calendar/CalendarToolbar';
 import MonthGrid from '../../components/calendar/MonthGrid';
 import TimeGrid from '../../components/calendar/TimeGrid';
+import UpcomingPanel from '../../components/calendar/UpcomingPanel';
 import type { ViewMode } from '../../components/calendar/view-mode';
 import EventDetailsModal from '../../components/events/EventDetailsModal';
 import EventEditorModal from '../../components/events/EventEditorModal';
@@ -139,37 +140,43 @@ export default function CalendarPage() {
                 </div>
             )}
 
-            {view === 'month' ? (
-                <MonthGrid
-                    gridDays={gridDays}
-                    cursorMonth={cursor.getMonth()}
-                    eventsByDay={eventsByDay}
-                    today={today}
-                    onDayClick={handleDayClick}
-                    onEventClick={openDetails}
-                />
-            ) : (
-                <TimeGrid
-                    days={view === 'week' ? getWeekDays(cursor) : [cursor]}
-                    events={events ?? []}
-                    today={today}
-                    onSlotClick={(day, hour) => {
-                        const at = startOfDay(day);
-                        at.setHours(hour);
-                        openCreate(at);
-                    }}
-                    onEventClick={openDetails}
-                />
-            )}
+            <div className={styles.layout}>
+                <UpcomingPanel onEventClick={openDetails} />
 
-            {isPending && <div className={styles.loading}>Загружаем записи...</div>}
-            {!isPending && !isError && (events?.length ?? 0) === 0 && (
-                <div className={styles.empty}>
-                    {view === 'day' && isSameDay(cursor, today)
-                        ? 'На сегодня записей нет'
-                        : 'На этот период записей нет'}
+                <div className={styles.calendarArea}>
+                    {view === 'month' ? (
+                        <MonthGrid
+                            gridDays={gridDays}
+                            cursorMonth={cursor.getMonth()}
+                            eventsByDay={eventsByDay}
+                            today={today}
+                            onDayClick={handleDayClick}
+                            onEventClick={openDetails}
+                        />
+                    ) : (
+                        <TimeGrid
+                            days={view === 'week' ? getWeekDays(cursor) : [cursor]}
+                            events={events ?? []}
+                            today={today}
+                            onSlotClick={(day, hour) => {
+                                const at = startOfDay(day);
+                                at.setHours(hour);
+                                openCreate(at);
+                            }}
+                            onEventClick={openDetails}
+                        />
+                    )}
+
+                    {isPending && <div className={styles.loading}>Загружаем записи...</div>}
+                    {!isPending && !isError && (events?.length ?? 0) === 0 && (
+                        <div className={styles.empty}>
+                            {view === 'day' && isSameDay(cursor, today)
+                                ? 'На сегодня записей нет'
+                                : 'На этот период записей нет'}
+                        </div>
+                    )}
                 </div>
-            )}
+            </div>
 
             {editor && (
                 <EventEditorModal
