@@ -13,6 +13,13 @@ export const eventService = {
         return data;
     },
 
+    async getUpcoming(limit = 10): Promise<EventSummary[]> {
+        const { data } = await eventApi.get<EventSummary[]>('/upcoming', {
+            params: { limit },
+        });
+        return data;
+    },
+
     async get(id: number): Promise<EventDetails> {
         const { data } = await eventApi.get<EventDetails>(`/${id}`);
         return data;

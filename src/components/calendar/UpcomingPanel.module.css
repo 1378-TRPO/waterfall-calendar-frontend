@@ -1,0 +1,159 @@
+.panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 280px;
+    flex-shrink: 0;
+}
+
+.title {
+    font-size: var(--text-md);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin: 0;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.item {
+    padding: var(--space-3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    cursor: pointer;
+    min-width: 0;
+}
+
+.when {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+}
+
+.whenMeeting {
+    color: var(--accent-soft-text);
+    font-weight: 600;
+}
+
+.itemTitle {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-heading);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.role {
+    font-size: var(--text-2xs);
+    color: var(--text-secondary);
+}
+
+.roleOrganizer {
+    color: var(--accent-soft-text);
+}
+
+.rsvpRow {
+    display: flex;
+    gap: var(--space-2);
+}
+
+.acceptButton,
+.declineButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    height: 30px;
+    border-radius: var(--radius-sm);
+    font-size: var(--text-xs);
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+.acceptButton {
+    border: 1px solid var(--success);
+    background: var(--success-bg);
+    color: var(--success);
+}
+
+.acceptButton:hover {
+    background: var(--success);
+    color: #fff;
+}
+
+.declineButton {
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+}
+
+.declineButton:hover {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.acceptButton:disabled,
+.declineButton:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+.empty {
+    border: 1px dashed var(--border-input);
+    border-radius: var(--radius-md);
+    padding: var(--space-5) var(--space-3);
+    text-align: center;
+}
+
+.emptyTitle {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-heading);
+    margin: 0 0 var(--space-1);
+}
+
+.emptyText {
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.45;
+}
+
+.loading {
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.error {
+    font-size: var(--text-xs);
+    color: var(--danger);
+    margin: 0;
+}
+
+@media (max-width: 960px) {
+    .panel {
+        width: 100%;
+    }
+}
