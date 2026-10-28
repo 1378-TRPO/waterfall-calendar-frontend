@@ -1,0 +1,122 @@
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-auto-rows: minmax(110px, 1fr);
+    border-left: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    background: var(--bg-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    flex: 1;
+}
+
+.weekday {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: var(--text-secondary);
+    background: var(--bg-subtle);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.cell {
+    padding: var(--space-1);
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    min-width: 0;
+}
+
+.cellOtherMonth {
+    background: var(--bg-subtle);
+}
+
+.cellOtherMonth .dayNumber {
+    color: var(--text-muted);
+}
+
+.cellToday {
+    background: var(--accent-soft-bg);
+}
+
+.dayNumber {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--text-primary);
+    align-self: flex-start;
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-pill);
+    padding: 0 var(--space-1);
+}
+
+.dayNumberToday {
+    background: var(--accent);
+    color: var(--text-invert);
+    font-weight: 600;
+}
+
+.chips {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.chip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-width: 0;
+    padding: 1px var(--space-1);
+    border-radius: var(--radius-sm);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
+    font-size: var(--text-2xs);
+    line-height: 1.4;
+}
+
+.chipMeeting {
+    background: var(--accent-soft-bg);
+    border-color: var(--accent-soft-border);
+    color: var(--accent-soft-text);
+}
+
+.chipMeeting .chipTime {
+    color: var(--accent-soft-text);
+}
+
+.chipCancelled {
+    opacity: 0.5;
+}
+
+.chipCancelled .chipTitle {
+    text-decoration: line-through;
+}
+
+.chipTime {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+}
+
+.chipTitle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text-primary);
+}
+
+.more {
+    font-size: var(--text-2xs);
+    color: var(--text-secondary);
+    padding-left: var(--space-1);
+}

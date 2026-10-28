@@ -21,7 +21,8 @@ function ThemeToggle() {
         dark: 'system',
         system: 'light',
     };
-    const label = mode === 'light' ? 'Светлая тема' : mode === 'dark' ? 'Темная тема' : 'Системная тема';
+    const label =
+        mode === 'light' ? 'Светлая тема' : mode === 'dark' ? 'Темная тема' : 'Системная тема';
 
     return (
         <button
