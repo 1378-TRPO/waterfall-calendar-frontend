@@ -6,9 +6,10 @@ export const queryKeys = {
         all: () => ['users'] as const,
     },
     events: {
+        root: () => ['events'] as const,
         range: (from: string, to: string) => ['events', 'range', from, to] as const,
         upcoming: (limit: number) => ['events', 'upcoming', limit] as const,
-        detail: (id: string) => ['events', 'detail', id] as const,
+        detail: (id: number) => ['events', 'detail', id] as const,
     },
     notifications: {
         list: () => ['notifications'] as const,

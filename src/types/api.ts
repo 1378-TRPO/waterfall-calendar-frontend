@@ -63,3 +63,16 @@ export interface Notification {
     createdAt: string;
     eventId: number | null;
 }
+
+export interface EventPayload {
+    title: string;
+    description: string | null;
+    startAt: string;
+    endAt: string;
+    meetingUrl: string | null;
+    participantIds: number[];
+}
+
+export interface CreateEventPayload extends EventPayload {
+    type: EventType;
+}

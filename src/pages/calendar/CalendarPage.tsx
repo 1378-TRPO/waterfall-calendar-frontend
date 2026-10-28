@@ -1,9 +1,11 @@
+import { IconCalendarPlus } from '@tabler/icons-react';
 import { useMemo, useState } from 'react';
 
 import CalendarToolbar from '../../components/calendar/CalendarToolbar';
 import MonthGrid from '../../components/calendar/MonthGrid';
 import TimeGrid from '../../components/calendar/TimeGrid';
 import type { ViewMode } from '../../components/calendar/view-mode';
+import EventEditorModal from '../../components/events/EventEditorModal';
 import { useEventsRange } from '../../hooks/useEvents';
 import type { EventSummary } from '../../types/api';
 import {
@@ -47,9 +49,16 @@ function getPeriodLabel(view: ViewMode, cursor: Date): string {
     return formatFullDate(cursor);
 }
 
+interface EditorState {
+    mode: 'create' | 'edit';
+    eventId?: number;
+    initialDate?: Date | null;
+}
+
 export default function CalendarPage() {
     const [view, setView] = useState<ViewMode>('month');
     const [cursor, setCursor] = useState(() => new Date());
+    const [editor, setEditor] = useState<EditorState | null>(null);
 
     const range = useMemo(() => getViewRange(view, cursor), [view, cursor]);
     const { data: events, isPending, isError } = useEventsRange(range.from, range.to);
@@ -91,16 +100,37 @@ export default function CalendarPage() {
 
     const gridDays = useMemo(() => buildMonthGrid(cursor), [cursor]);
 
+    const openCreate = (initialDate?: Date | null) => setEditor({ mode: 'create', initialDate });
+    const openEdit = (event: EventSummary) =>
+        setEditor({ mode: 'edit', eventId: event.id, initialDate: null });
+
+    // Клик по пустому дню в месяце: запись на 10:00 этого дня.
+    const handleDayClick = (day: Date) => {
+        const at = startOfDay(day);
+        at.setHours(10);
+        openCreate(at);
+    };
+
     return (
         <div className={styles.page}>
-            <CalendarToolbar
-                view={view}
-                onViewChange={setView}
-                periodLabel={periodLabel}
-                onPrev={handlePrev}
-                onNext={handleNext}
-                onToday={() => setCursor(new Date())}
-            />
+            <div className={styles.topRow}>
+                <CalendarToolbar
+                    view={view}
+                    onViewChange={setView}
+                    periodLabel={periodLabel}
+                    onPrev={handlePrev}
+                    onNext={handleNext}
+                    onToday={() => setCursor(new Date())}
+                />
+                <button
+                    type="button"
+                    className={styles.createButton}
+                    onClick={() => openCreate(null)}
+                >
+                    <IconCalendarPlus size={18} stroke={1.8} />
+                    Создать
+                </button>
+            </div>
 
             {isError && (
                 <div className={styles.error}>
@@ -114,12 +144,20 @@ export default function CalendarPage() {
                     cursorMonth={cursor.getMonth()}
                     eventsByDay={eventsByDay}
                     today={today}
+                    onDayClick={handleDayClick}
+                    onEventClick={openEdit}
                 />
             ) : (
                 <TimeGrid
                     days={view === 'week' ? getWeekDays(cursor) : [cursor]}
                     events={events ?? []}
                     today={today}
+                    onSlotClick={(day, hour) => {
+                        const at = startOfDay(day);
+                        at.setHours(hour);
+                        openCreate(at);
+                    }}
+                    onEventClick={openEdit}
                 />
             )}
 
@@ -130,6 +168,16 @@ export default function CalendarPage() {
                         ? 'На сегодня записей нет'
                         : 'На этот период записей нет'}
                 </div>
+            )}
+
+            {editor && (
+                <EventEditorModal
+                    mode={editor.mode}
+                    eventId={editor.eventId}
+                    initialDate={editor.initialDate}
+                    onClose={() => setEditor(null)}
+                    onSaved={() => setEditor(null)}
+                />
             )}
         </div>
     );

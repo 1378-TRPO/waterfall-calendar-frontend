@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import type { EventSummary } from '../../types/api';
-import { formatTime, isSameDay, minutesOfDay,WEEKDAYS_SHORT } from '../../utils/datetime';
+import { formatTime, isSameDay, minutesOfDay, WEEKDAYS_SHORT } from '../../utils/datetime';
 import styles from './TimeGrid.module.css';
 
 interface TimeGridProps {
@@ -9,6 +9,8 @@ interface TimeGridProps {
     days: Date[];
     events: EventSummary[];
     today: Date;
+    onSlotClick: (day: Date, hour: number) => void;
+    onEventClick: (event: EventSummary) => void;
 }
 
 const PX_PER_HOUR = 48;
@@ -72,8 +74,23 @@ function useNowTick(): Date {
     return now;
 }
 
-export default function TimeGrid({ days, events, today }: TimeGridProps) {
+export default function TimeGrid({
+    days,
+    events,
+    today,
+    onSlotClick,
+    onEventClick,
+}: TimeGridProps) {
     const now = useNowTick();
+
+    const handleColumnClick = (day: Date, event: React.MouseEvent<HTMLDivElement>) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const hour = Math.min(
+            23,
+            Math.max(0, Math.floor((event.clientY - rect.top) / PX_PER_HOUR)),
+        );
+        onSlotClick(day, hour);
+    };
 
     return (
         <div
@@ -112,30 +129,51 @@ export default function TimeGrid({ days, events, today }: TimeGridProps) {
                             const showNowLine = isSameDay(day, now);
                             const nowTop = minutesOfDay(now) * PX_PER_MINUTE;
                             return (
-                                <div key={day.getTime()} className={styles.column}>
+                                <div
+                                    key={day.getTime()}
+                                    className={styles.column}
+                                    onClick={(clickEvent) => handleColumnClick(day, clickEvent)}
+                                    role="presentation"
+                                >
                                     {HOURS.map((hour) => (
                                         <div key={hour} className={styles.hourLine} />
                                     ))}
-                                    {positioned.map(({ event, top, height, lane, lanes }) => (
-                                        <div
-                                            key={event.id}
-                                            className={`${styles.event} ${
-                                                event.type === 'meeting' ? styles.eventMeeting : ''
-                                            } ${event.isCancelled ? styles.eventCancelled : ''}`}
-                                            style={{
-                                                top: `${top}px`,
-                                                height: `${height}px`,
-                                                left: `calc(${(lane * 100) / lanes}% + 2px)`,
-                                                width: `calc(${100 / lanes}% - 4px)`,
-                                            }}
-                                            title={`${formatTime(new Date(event.startAt))} ${event.title}`}
-                                        >
-                                            <span className={styles.eventTime}>
-                                                {formatTime(new Date(event.startAt))}
-                                            </span>
-                                            <span className={styles.eventTitle}>{event.title}</span>
-                                        </div>
-                                    ))}
+                                    {positioned.map(({ event, top, height, lane, lanes }) => {
+                                        const editable = event.isOrganizer && !event.isCancelled;
+                                        return (
+                                            <div
+                                                key={event.id}
+                                                className={`${styles.event} ${
+                                                    event.type === 'meeting'
+                                                        ? styles.eventMeeting
+                                                        : ''
+                                                } ${event.isCancelled ? styles.eventCancelled : ''} ${
+                                                    editable ? styles.eventClickable : ''
+                                                }`}
+                                                style={{
+                                                    top: `${top}px`,
+                                                    height: `${height}px`,
+                                                    left: `calc(${(lane * 100) / lanes}% + 2px)`,
+                                                    width: `calc(${100 / lanes}% - 4px)`,
+                                                }}
+                                                title={`${formatTime(new Date(event.startAt))} ${event.title}`}
+                                                onClick={(clickEvent) => {
+                                                    clickEvent.stopPropagation();
+                                                    if (editable) {
+                                                        onEventClick(event);
+                                                    }
+                                                }}
+                                                role="presentation"
+                                            >
+                                                <span className={styles.eventTime}>
+                                                    {formatTime(new Date(event.startAt))}
+                                                </span>
+                                                <span className={styles.eventTitle}>
+                                                    {event.title}
+                                                </span>
+                                            </div>
+                                        );
+                                    })}
                                     {showNowLine && (
                                         <div
                                             className={styles.nowLine}

@@ -120,3 +120,11 @@
     color: var(--text-secondary);
     padding-left: var(--space-1);
 }
+
+.chipClickable {
+    cursor: pointer;
+}
+
+.chipClickable:hover {
+    filter: brightness(0.97);
+}

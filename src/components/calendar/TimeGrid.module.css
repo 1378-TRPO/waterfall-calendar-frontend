@@ -152,6 +152,10 @@
     text-decoration: line-through;
 }
 
+.eventClickable {
+    cursor: pointer;
+}
+
 .nowLine {
     position: absolute;
     left: 0;
