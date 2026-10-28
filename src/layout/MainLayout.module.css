@@ -84,7 +84,8 @@
     flex: 1;
 }
 
-.themeToggle {
+.themeToggle,
+.iconButton {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -100,9 +101,49 @@
         color 0.15s ease;
 }
 
-.themeToggle:hover {
+.themeToggle:hover,
+.iconButton:hover {
     background: var(--bg-hover);
     color: var(--text-heading);
+}
+
+.userArea {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.userChip {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2) var(--space-1) var(--space-1);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+}
+
+.avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: var(--text-invert);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.userName {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Content */

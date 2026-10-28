@@ -1,6 +1,16 @@
-import { IconBell, IconCalendar, IconMoon, IconSun, IconSunMoon } from '@tabler/icons-react';
-import { NavLink, Outlet } from 'react-router-dom';
+import {
+    IconBell,
+    IconCalendar,
+    IconLogout,
+    IconMoon,
+    IconSun,
+    IconSunMoon,
+} from '@tabler/icons-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 
+import { useMe } from '../hooks/useMe';
+import { authService } from '../services/authService';
 import { useTheme } from '../theme/theme-context';
 import styles from './MainLayout.module.css';
 
@@ -11,13 +21,12 @@ function ThemeToggle() {
         dark: 'system',
         system: 'light',
     };
-    const label =
-        mode === 'light' ? 'Светлая тема' : mode === 'dark' ? 'Темная тема' : 'Системная тема';
+    const label = mode === 'light' ? 'Светлая тема' : mode === 'dark' ? 'Темная тема' : 'Системная тема';
 
     return (
         <button
             type="button"
-            className={styles.themeToggle}
+            className={styles.iconButton}
             onClick={() => setMode(next[mode])}
             title={label}
             aria-label={label}
@@ -26,6 +35,36 @@ function ThemeToggle() {
             {mode === 'dark' && <IconMoon size={18} stroke={1.8} />}
             {mode === 'system' && <IconSunMoon size={18} stroke={1.8} />}
         </button>
+    );
+}
+
+function UserChip() {
+    const navigate = useNavigate();
+    const queryClient = useQueryClient();
+    const { data: me } = useMe();
+
+    const handleLogout = () => {
+        authService.logout();
+        queryClient.clear();
+        navigate('/login', { replace: true });
+    };
+
+    return (
+        <div className={styles.userArea}>
+            <div className={styles.userChip} title={me?.email}>
+                <span className={styles.avatar}>{me?.displayName.charAt(0) ?? '?'}</span>
+                <span className={styles.userName}>{me?.displayName ?? '...'}</span>
+            </div>
+            <button
+                type="button"
+                className={styles.iconButton}
+                onClick={handleLogout}
+                title="Выйти"
+                aria-label="Выйти"
+            >
+                <IconLogout size={18} stroke={1.8} />
+            </button>
+        </div>
     );
 }
 
@@ -51,6 +90,7 @@ export default function MainLayout() {
                     </nav>
                     <div className={styles.spacer} />
                     <ThemeToggle />
+                    <UserChip />
                 </div>
             </header>
             <main className={styles.content}>
