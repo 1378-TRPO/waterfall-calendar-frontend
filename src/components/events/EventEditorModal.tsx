@@ -1,6 +1,6 @@
 import { IconLink } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { type FormEvent,useMemo, useState } from 'react';
+import { type FormEvent, useMemo, useState } from 'react';
 
 import { useEventDetails } from '../../hooks/useEventDetails';
 import { useMe } from '../../hooks/useMe';

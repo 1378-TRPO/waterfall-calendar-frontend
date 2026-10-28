@@ -138,42 +138,31 @@ export default function TimeGrid({
                                     {HOURS.map((hour) => (
                                         <div key={hour} className={styles.hourLine} />
                                     ))}
-                                    {positioned.map(({ event, top, height, lane, lanes }) => {
-                                        const editable = event.isOrganizer && !event.isCancelled;
-                                        return (
-                                            <div
-                                                key={event.id}
-                                                className={`${styles.event} ${
-                                                    event.type === 'meeting'
-                                                        ? styles.eventMeeting
-                                                        : ''
-                                                } ${event.isCancelled ? styles.eventCancelled : ''} ${
-                                                    editable ? styles.eventClickable : ''
-                                                }`}
-                                                style={{
-                                                    top: `${top}px`,
-                                                    height: `${height}px`,
-                                                    left: `calc(${(lane * 100) / lanes}% + 2px)`,
-                                                    width: `calc(${100 / lanes}% - 4px)`,
-                                                }}
-                                                title={`${formatTime(new Date(event.startAt))} ${event.title}`}
-                                                onClick={(clickEvent) => {
-                                                    clickEvent.stopPropagation();
-                                                    if (editable) {
-                                                        onEventClick(event);
-                                                    }
-                                                }}
-                                                role="presentation"
-                                            >
-                                                <span className={styles.eventTime}>
-                                                    {formatTime(new Date(event.startAt))}
-                                                </span>
-                                                <span className={styles.eventTitle}>
-                                                    {event.title}
-                                                </span>
-                                            </div>
-                                        );
-                                    })}
+                                    {positioned.map(({ event, top, height, lane, lanes }) => (
+                                        <div
+                                            key={event.id}
+                                            className={`${styles.event} ${styles.eventClickable} ${
+                                                event.type === 'meeting' ? styles.eventMeeting : ''
+                                            } ${event.isCancelled ? styles.eventCancelled : ''}`}
+                                            style={{
+                                                top: `${top}px`,
+                                                height: `${height}px`,
+                                                left: `calc(${(lane * 100) / lanes}% + 2px)`,
+                                                width: `calc(${100 / lanes}% - 4px)`,
+                                            }}
+                                            title={`${formatTime(new Date(event.startAt))} ${event.title}`}
+                                            onClick={(clickEvent) => {
+                                                clickEvent.stopPropagation();
+                                                onEventClick(event);
+                                            }}
+                                            role="presentation"
+                                        >
+                                            <span className={styles.eventTime}>
+                                                {formatTime(new Date(event.startAt))}
+                                            </span>
+                                            <span className={styles.eventTitle}>{event.title}</span>
+                                        </div>
+                                    ))}
                                     {showNowLine && (
                                         <div
                                             className={styles.nowLine}

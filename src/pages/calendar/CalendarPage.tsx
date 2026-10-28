@@ -5,6 +5,7 @@ import CalendarToolbar from '../../components/calendar/CalendarToolbar';
 import MonthGrid from '../../components/calendar/MonthGrid';
 import TimeGrid from '../../components/calendar/TimeGrid';
 import type { ViewMode } from '../../components/calendar/view-mode';
+import EventDetailsModal from '../../components/events/EventDetailsModal';
 import EventEditorModal from '../../components/events/EventEditorModal';
 import { useEventsRange } from '../../hooks/useEvents';
 import type { EventSummary } from '../../types/api';
@@ -59,6 +60,7 @@ export default function CalendarPage() {
     const [view, setView] = useState<ViewMode>('month');
     const [cursor, setCursor] = useState(() => new Date());
     const [editor, setEditor] = useState<EditorState | null>(null);
+    const [detailsId, setDetailsId] = useState<number | null>(null);
 
     const range = useMemo(() => getViewRange(view, cursor), [view, cursor]);
     const { data: events, isPending, isError } = useEventsRange(range.from, range.to);
@@ -101,8 +103,7 @@ export default function CalendarPage() {
     const gridDays = useMemo(() => buildMonthGrid(cursor), [cursor]);
 
     const openCreate = (initialDate?: Date | null) => setEditor({ mode: 'create', initialDate });
-    const openEdit = (event: EventSummary) =>
-        setEditor({ mode: 'edit', eventId: event.id, initialDate: null });
+    const openDetails = (event: EventSummary) => setDetailsId(event.id);
 
     // Клик по пустому дню в месяце: запись на 10:00 этого дня.
     const handleDayClick = (day: Date) => {
@@ -145,7 +146,7 @@ export default function CalendarPage() {
                     eventsByDay={eventsByDay}
                     today={today}
                     onDayClick={handleDayClick}
-                    onEventClick={openEdit}
+                    onEventClick={openDetails}
                 />
             ) : (
                 <TimeGrid
@@ -157,7 +158,7 @@ export default function CalendarPage() {
                         at.setHours(hour);
                         openCreate(at);
                     }}
-                    onEventClick={openEdit}
+                    onEventClick={openDetails}
                 />
             )}
 
@@ -177,6 +178,17 @@ export default function CalendarPage() {
                     initialDate={editor.initialDate}
                     onClose={() => setEditor(null)}
                     onSaved={() => setEditor(null)}
+                />
+            )}
+
+            {detailsId !== null && (
+                <EventDetailsModal
+                    eventId={detailsId}
+                    onClose={() => setDetailsId(null)}
+                    onEdit={(eventId) => {
+                        setDetailsId(null);
+                        setEditor({ mode: 'edit', eventId, initialDate: null });
+                    }}
                 />
             )}
         </div>
