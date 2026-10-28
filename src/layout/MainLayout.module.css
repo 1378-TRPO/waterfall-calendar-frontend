@@ -1,0 +1,115 @@
+.page {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.headerContent {
+    max-width: var(--layout-wide);
+    margin: 0 auto;
+    padding: 0 var(--gutter);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: inherit;
+}
+
+.logoIcon {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--accent);
+    color: var(--text-invert);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.brandText {
+    font-size: var(--text-md);
+    font-weight: 600;
+    color: var(--text-heading);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+.navLink {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.navLink:hover {
+    background: var(--bg-hover);
+    color: var(--text-heading);
+}
+
+.navLink.active {
+    background: var(--accent-soft-bg);
+    color: var(--accent-soft-text);
+    font-weight: 600;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.themeToggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition:
+        background 0.15s ease,
+        color 0.15s ease;
+}
+
+.themeToggle:hover {
+    background: var(--bg-hover);
+    color: var(--text-heading);
+}
+
+/* Content */
+.content {
+    flex: 1;
+    width: 100%;
+    max-width: var(--layout-wide);
+    margin: 0 auto;
+    padding: var(--space-6) var(--gutter);
+}
