@@ -86,13 +86,14 @@
     align-items: center;
 }
 
+/* Счетчик лежит поверх значка, слегка выступая слева. */
 .badge {
     position: absolute;
-    top: -7px;
-    right: -9px;
+    top: -6px;
+    left: -10px;
     min-width: 16px;
     height: 16px;
-    padding: 0 4px;
+    padding: 0 5px;
     border-radius: var(--radius-pill);
     background: var(--danger);
     color: #fff;
@@ -100,6 +101,8 @@
     font-weight: 600;
     line-height: 16px;
     text-align: center;
+    pointer-events: none;
+    box-shadow: 0 0 0 2px var(--bg-surface);
 }
 
 .spacer {
